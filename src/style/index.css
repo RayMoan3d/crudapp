@@ -1,0 +1,49 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Graphik';
+}
+
+.dashboard{
+    margin: auto;
+    margin-top: 40px;
+    height: 100px;
+    width: 1038px;
+}
+
+.dash{
+    display: flex;
+    justify-content: space-between;
+}
+
+.add{
+    display: flex;
+    height: 48px;
+    width: 215px;
+    border-radius: 25px;
+    padding: 15.5px 24px;
+    justify-content: center;
+    gap: 24px;
+    background-color: #A100FF;
+    color: white;
+    border: none;
+    font-size: 18px;
+}
+
+h3{
+    font-size: 24px;
+}
+
+.viewicon{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.icon{
+    
+    margin-left: 10px;
+}
+
+.icon-inactive {
+    opacity: 0.5;
+  }
