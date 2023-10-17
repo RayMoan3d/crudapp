@@ -3,9 +3,13 @@ import { useState, useEffect } from "react";
 import "font-awesome/css/font-awesome.min.css";
 import Card from "../component/card";
 import Modal from "../component/modal";
+import Table from "../component/table";
+import editIcon from "./edit.png";
+import removeIcon from "./delete.png"; 
 
 function Dashboard() {
-  const [empData, setEmpData] = useState(null);
+
+  const tableHeaders = ["Id", "Name","Phone", "Email"];
 
   const [people, setPeople] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -91,80 +95,36 @@ function Dashboard() {
 
       {isCardView && (
         <div className="card-view">
-          <p>Card View Content</p>
+          <br></br>
+          <div className="cardview">
           {people.map((person) => (
             <Card
               key={person.id}
               name={person.name}
               email={person.email}
-              contactNumber={person.contactNumber}
+              contactNumber={person.phone}
               onEdit={() => handleEdit(person.id)}
               onDelete={() => handleDelete(person.id)}
             />
           ))}
+          </div>
         </div>
       )}
-      {isListView && (
-        <div className="list-view">
-          <p>List View Content</p>
-          {
-            <table className="table table-bordered">
-            <thead className="bg-dark text-white">
-              <tr>
-                <td> Id </td>
-                <td> Name </td>
-                <td> Email </td>
-                <td> Phone </td>
-                <td> Action </td>
-              </tr>
-            </thead>
-            <tbody>
-              {empData &&
-                empData.map((item) => (
-                  <tr key={item.id}>
-                    <td>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.email}</td>
-                    <td>{item.phone}</td>
-                    <td>
-                    {/*change <a> to Button*/}
-                      <button  
-                        onClick={() => {
-                          
-                        }}
-                        className="btn btn-secondary"
-                      >
-                        Edit
-                      </button>
-                      &nbsp;&nbsp;
 
-                       {/*change <a> to Button*/}
-                      <button
-                        onClick={() => {
-                          
-                        }}
-                        className="btn btn-danger"
-                      >
-                        Remove
-                      </button>
-                      &nbsp;&nbsp;
 
-                       {/*change <a> to Button*/}
-                      <button
-                        onClick={() => {
-                          
-                        }}
-                        className="btn btn-primary"
-                      >
-                        Details
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-          }
-        </div>
+{isListView && (
+        <Table
+          data={people}
+          headers={tableHeaders}
+          actions={[
+            {
+              label: <img className="t-icon" src={editIcon} alt="Edit" />,
+            },
+            {
+              label: <img className="t-icon" src={removeIcon} alt="Remove" />,
+            }
+          ]}
+        />
       )}
     </div>
   );
