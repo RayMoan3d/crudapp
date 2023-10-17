@@ -27,8 +27,8 @@ function Modal({ onCancel, onAddContact }) {
             <input type="email" />
           </div>
           <div className="modal-buttons">
-            <button onClick={handleCancel}>Cancel</button>
-            <button onClick={handleAddContact}>Add Contact</button>
+            <button className="modal-cancelbtn" onClick={handleCancel}>Cancel</button>
+            <button className="modal-addbtn" onClick={handleAddContact}>Add Contact</button>
           </div>
         </div>
       </div>

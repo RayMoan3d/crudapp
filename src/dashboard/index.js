@@ -2,10 +2,11 @@ import "../style/index.css";
 import { useState, useEffect } from "react";
 import "font-awesome/css/font-awesome.min.css";
 import Card from "../component/card";
-import axios from "axios";
 import Modal from "../component/modal";
 
 function Dashboard() {
+  const [empData, setEmpData] = useState(null);
+
   const [people, setPeople] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -18,10 +19,16 @@ function Dashboard() {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/people")
+    // Use the Fetch API to make the GET request
+    fetch("http://localhost:4000/people")
       .then((response) => {
-        setPeople(response.data);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setPeople(data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -101,7 +108,61 @@ function Dashboard() {
         <div className="list-view">
           <p>List View Content</p>
           {
-            //content
+            <table className="table table-bordered">
+            <thead className="bg-dark text-white">
+              <tr>
+                <td> Id </td>
+                <td> Name </td>
+                <td> Email </td>
+                <td> Phone </td>
+                <td> Action </td>
+              </tr>
+            </thead>
+            <tbody>
+              {empData &&
+                empData.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.id}</td>
+                    <td>{item.name}</td>
+                    <td>{item.email}</td>
+                    <td>{item.phone}</td>
+                    <td>
+                    {/*change <a> to Button*/}
+                      <button  
+                        onClick={() => {
+                          
+                        }}
+                        className="btn btn-secondary"
+                      >
+                        Edit
+                      </button>
+                      &nbsp;&nbsp;
+
+                       {/*change <a> to Button*/}
+                      <button
+                        onClick={() => {
+                          
+                        }}
+                        className="btn btn-danger"
+                      >
+                        Remove
+                      </button>
+                      &nbsp;&nbsp;
+
+                       {/*change <a> to Button*/}
+                      <button
+                        onClick={() => {
+                          
+                        }}
+                        className="btn btn-primary"
+                      >
+                        Details
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
           }
         </div>
       )}
