@@ -2,14 +2,25 @@ import "../style/index.css";
 import { useState, useEffect } from "react";
 import "font-awesome/css/font-awesome.min.css";
 import Card from "../component/card";
-import Modal from "../component/modal";
+import AddModal from "../component/modal";
 import Table from "../component/table";
+
 import editIcon from "./edit.png";
 import removeIcon from "./delete.png"; 
 
 function Dashboard() {
 
-  const tableHeaders = ["Id", "Name","Phone", "Email"];
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
+
+  const handleEdit = (person) => {
+    setSelectedCard(person); // Store the selected card data
+    setIsEditModalVisible(true); // Show the EditModal
+  };
+
+  
+
+  const tableHeaders = ["Id", "Name","Contact Number", "Email"];
 
   const [people, setPeople] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -39,10 +50,7 @@ function Dashboard() {
       });
   }, []);
 
-  const handleEdit = (personId) => {
-    // Handle the edit action here
-    console.log("Edit clicked for person with ID:", personId);
-  };
+  
 
   const handleDelete = (personId) => {
     // Handle the delete action here
@@ -73,7 +81,7 @@ function Dashboard() {
         <button className="add" onClick={handleAddContact}>
           Add New Customer
         </button>
-        {isModalVisible && <Modal onCancel={handleCancel} />}
+        {isModalVisible && <AddModal onCancel={handleCancel} />}
       </div>
 
       <div className="viewicon">
@@ -102,7 +110,7 @@ function Dashboard() {
               key={person.id}
               name={person.name}
               email={person.email}
-              contactNumber={person.phone}
+              contactNumber={person["contact number"]}
               onEdit={() => handleEdit(person.id)}
               onDelete={() => handleDelete(person.id)}
             />
@@ -110,6 +118,8 @@ function Dashboard() {
           </div>
         </div>
       )}
+
+
 
 
 {isListView && (

@@ -1,11 +1,11 @@
 import React from "react";
-import "../style/component.css";
+import "../style/card.css";
 
 const Card = (props) => {
   return (
     <div className="card">
       <div className="card-header">
-        <h2 className="card-title underlined-text">{props.name}</h2>
+        <h2 className="card-title">{props.name}</h2>
         <p className="card-text">
            {props.email}
         </p>
